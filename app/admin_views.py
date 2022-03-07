@@ -1,10 +1,11 @@
 from app import app
-from flask import render_template
+from flask import jsonify
 
-@app.route('/admin')
+@app.route('/admin', methods=['GET', 'POST'])
 def admin_login():
-    return render_template('admin/login.html')
+    return jsonify(location='admin login page')
+
 
 @app.route('/admin/dashboard')
 def admin_dashboard():
-    return render_template('admin/dashboard.html')
+    return jsonify(location='admin dashboard')

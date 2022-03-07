@@ -1,6 +1,6 @@
 from app import app
-from flask import render_template
+from flask import jsonify
 
-@app.route('/')
+@app.route('/', methods=['GET'])
 def home():
-    return render_template('/public/index.html')
+    return jsonify(location='home_page')

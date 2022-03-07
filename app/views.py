@@ -1,6 +1,6 @@
 from app import app
+from flask import render_template
 
 @app.route('/')
 def home():
-    return 'this is the public home view'
-
+    return render_template('/public/index.html')

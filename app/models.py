@@ -1,14 +1,21 @@
-from sqlalchemy import Column, Integer, String, DateTime
+from sqlalchemy import Column, String, DateTime
 from app import db, ma
+from secrets import token_urlsafe
 
 
-class PagePost(db.Model):
-    __tablename__='Posts'
-    id = Column(Integer, autoincrement=True, primary_key=True)
-    post = Column(String)
-    title = Column(String)
+class Sticky(db.Model):
+    __tablename__='sticky_notes'
+    sticky_id = Column(String, primary_key=True, default=token_urlsafe(16))
+    content = Column(String)
     timestamp = Column(DateTime)
+    username = Column(String)
 
-class PagePostSchema(ma.Schema):
+class StickySchema(ma.Schema):
     class Meta:
-        fields = ('id','post','title', 'timestamp')
+        fields = ('sticky_id','content', 'timestamp', 'username')
+
+class User(db.Model):
+    __tablename__='users'
+    username = Column(String, primary_key=True)
+    password = Column(String)
+    email = Column(String)

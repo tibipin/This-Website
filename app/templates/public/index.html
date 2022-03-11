@@ -7,7 +7,7 @@
     <div>
         <p>
             On {{ sticky.timestamp.replace('T', ' ')}}, {{ sticky.username }} said: 
-            <b>{{ sticky.content }}</b>
+            <b>{{ sticky.content|safe }} </b>
         </p>
 
     </div>

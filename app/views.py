@@ -1,7 +1,10 @@
 from app import app
 from flask import jsonify, render_template, request, redirect, url_for
 from app.models import Sticky, StickySchema, User
-from app.forms import LoginForm
+from app.forms import LoginForm, StickyForm
+from app import db
+from secrets import token_urlsafe
+from markdown import markdown
 
 @app.route('/', methods=['GET'])
 def home():
@@ -21,6 +24,14 @@ def my_admin_login():
             else:
                 return render_template('admin/login.html')
 
-@app.route('/_admin/dashboard', methods=['GET','POST'])
-def my_admin_dashboard():
-    return render_template('admin/dashboard.html', username=request.args.get('username'))
+@app.route('/_admin/dashboard/<username>', methods=['GET','POST'])
+def my_admin_dashboard(username):
+    sticky_form = StickyForm()
+    if request.method == 'GET':
+        return render_template('admin/dashboard.html', form=sticky_form), 200
+    if request.method == 'POST':
+        if sticky_form.validate_on_submit():
+            new_sticky = Sticky(sticky_id=token_urlsafe(16), content=markdown(sticky_form.content.data), username=username)
+            db.session.add(new_sticky)
+            db.session.commit()
+            return redirect(url_for('home'))

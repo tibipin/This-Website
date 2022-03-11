@@ -1,13 +1,13 @@
 from sqlalchemy import Column, String, DateTime
+from sqlalchemy.sql import func
 from app import db, ma
-from secrets import token_urlsafe
 
 
 class Sticky(db.Model):
     __tablename__='sticky_notes'
-    sticky_id = Column(String, primary_key=True, default=token_urlsafe(16))
+    sticky_id = Column(String, primary_key=True)
     content = Column(String)
-    timestamp = Column(DateTime)
+    timestamp = Column(DateTime(timezone=True), default=func.now())
     username = Column(String)
 
 class StickySchema(ma.Schema):

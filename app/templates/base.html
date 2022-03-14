@@ -5,13 +5,26 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <title>Tibi Pin</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
         <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Ubuntu+Mono&display=swap" rel="stylesheet">
     </head>
     <body>
+        
+        <!--This is the navigation bar-->
+        <div class="w3-bar w3-border w3-light-grey" id="testid">
+            <a href="{{url_for('home')}}" class="w3-bar-item w3-button w3-border-right">About me 😎</a>
+            <a href="{{url_for('blog')}}" class="w3-bar-item w3-button w3-border-right">Blog 🍕</a>
+            <a href="https://soundcloud.com/tibipin" class="w3-bar-item w3-button w3-border-right">My music 📼</a>
+            <a href="{{url_for('my_admin_login')}}" class="w3-bar-item w3-button w3-border-right">Login as admin 💾</a>
+        </div>
+        <!------------------------------> 
+        
         {% block body %}
         {% endblock %}
+
     </body>
 </html>

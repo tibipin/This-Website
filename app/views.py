@@ -1,3 +1,4 @@
+from sqlalchemy import desc
 from app import app
 from flask import jsonify, render_template, request, redirect, url_for
 from app.models import Sticky, StickySchema, User
@@ -6,9 +7,15 @@ from app import db
 from secrets import token_urlsafe
 from markdown import markdown
 
+@app.route('/about_me', methods=['GET'])
 @app.route('/', methods=['GET'])
 def home():
-    stickies_list = StickySchema(many=True).dump(Sticky.query.all())
+    stickies_list = StickySchema(many=True).dump(Sticky.query.order_by(Sticky.timestamp.desc()).limit(5))
+    return render_template('public/index.html', stickiez=stickies_list, title=stickies_list[0]['username'])
+
+@app.route('/blog', methods=['GET'])
+def blog():
+    stickies_list = StickySchema(many=True).dump(Sticky.query.order_by(Sticky.timestamp.desc()).limit(5))
     return render_template('public/index.html', stickiez=stickies_list, title=stickies_list[0]['username'])
 
 
@@ -24,7 +31,7 @@ def my_admin_login():
             else:
                 return render_template('admin/login.html')
 
-@app.route('/_admin/dashboard/<username>', methods=['GET','POST'])
+@app.route('/_admin/<username>', methods=['GET','POST'])
 def my_admin_dashboard(username):
     sticky_form = StickyForm()
     if request.method == 'GET':

@@ -1,16 +1,16 @@
 {% extends 'base.html' %}
-  {% block body %}
-    <h2>
-        Hello!
-    </h2>
-    {% for sticky in stickiez %}
-    <div>
-        <p>
-            On {{ sticky.timestamp.replace('T', ' ')}}, {{ sticky.username }} said: 
-            <b>{{ sticky.content|safe }} </b>
-        </p>
-
+  {% block body %}        
+    <div class="w3-container">
+      <h2 class="testclass">
+        Bună ziua. Mă numesc Tibi și âmi plake veața
+      </h2>
     </div>
+
+    {% for sticky in stickiez %}
+    <div class="w3-panel w3-border w3-round-xlarge">
+      <p class="testclass">Posted on: <b>{{ sticky.timestamp.replace('T', ' ')}}</b></p>
+          {{ sticky.content|safe }}
+    </div>
+    
     {% endfor %}
-  
   {% endblock %}

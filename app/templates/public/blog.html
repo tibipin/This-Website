@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+  {% block body %}       
+
+    {% for sticky in stickiez %}
+    <div class="w3-panel w3-border w3-round-xlarge">
+      <p>Posted on: <b>{{ sticky.timestamp.replace('T', ' ')}}</b></p>
+          {{ sticky.content|safe }}
+    </div>  
+    {% endfor %}
+
+  {% endblock %}

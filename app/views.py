@@ -11,12 +11,12 @@ from markdown import markdown
 @app.route('/', methods=['GET'])
 def home():
     stickies_list = StickySchema(many=True).dump(Sticky.query.order_by(Sticky.timestamp.desc()).limit(5))
-    return render_template('public/index.html', stickiez=stickies_list, title=stickies_list[0]['username'])
+    return render_template('public/home.html', stickiez=stickies_list, title=stickies_list[0]['username'])
 
 @app.route('/blog', methods=['GET'])
 def blog():
     stickies_list = StickySchema(many=True).dump(Sticky.query.order_by(Sticky.timestamp.desc()).limit(5))
-    return render_template('public/index.html', stickiez=stickies_list, title=stickies_list[0]['username'])
+    return render_template('public/blog.html', stickiez=stickies_list, title=stickies_list[0]['username'])
 
 
 @app.route('/_admin', methods=['GET','POST'])

@@ -8,11 +8,19 @@ from app import db
 from secrets import token_urlsafe
 from markdown import markdown
 
+# =================================
+# ===> Home / About me section <===
+# =================================
+
 @app.route('/about_me', methods=['GET'])
 @app.route('/', methods=['GET'])
 def home():
     current_date = (date(2022,9,22) - date.today()).days
     return render_template('public/home.html', date=current_date)
+
+# =======================================
+# ===> Quick Thoughts / Blog section <===
+# =======================================
 
 @app.route('/blog', methods=['GET'])
 def blog():
@@ -21,18 +29,33 @@ def blog():
         return render_template('public/blog.html', stickiez=stickies_list, title=stickies_list[0]['title'])
     else: return jsonify(messsage='no stickiez')
     
-
-@app.route('/music', methods=['GET'])
-def music():
-    return jsonify(message='this is the music page')
+# ==========================
+# ===> Projects section <===
+# ==========================
 
 @app.route('/projects', methods=['GET'])
 def projects():
     return jsonify(message='this is the projects page'), 200
 
+# ====================
+# ===> CV section <===
+# ====================
+
 @app.route('/cv', methods=['GET'])
 def resume():
     return jsonify(message='this is the resume page'), 200
+
+# =======================
+# ===> MUSIC section <===
+# =======================
+
+@app.route('/music', methods=['GET'])
+def music():
+    return render_template('public/music.html')
+
+# =======================
+# ===> ADMIN section <===
+# =======================
 
 @app.route('/_admin', methods=['GET','POST'])
 def my_admin_login():
@@ -45,6 +68,10 @@ def my_admin_login():
                 return redirect(url_for('my_admin_dashboard', username=form.username.data))
             else:
                 return render_template('admin/login.html')
+
+# =================================
+# ===> CREATE NEW POST section <===
+# =================================
 
 @app.route('/_admin/<username>', methods=['GET','POST'])
 def my_admin_dashboard(username):

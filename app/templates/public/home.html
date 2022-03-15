@@ -2,11 +2,41 @@
 
 
 {% block body %}
-<div class="w3-container w3-margin-top w3-display-topleft w3-padding-64"  style="width:30%;">
-    <h4 class="w3-2021-illuminating">
-      Hello.
-      My name is Tibi.
+<div class="w3-container">
+    <img src="{{url_for('static',filename='fatau-modified.png')}}" class="w3-image w3-round" style="width:100%; max-width: 160px; height: 100%;">
+    <h4>
+        Hello.
+        My name is Tibi.
     </h4>
-    <p>This is the about me section of my website and it's where I am supposed to write some intro stuff about me</p>
+    <p>
+        I'm a developer located in Bucharest, Romania.<br>
+        Besides being a dedicated and proud dad to my {{ date }} days old daughter,
+        I like to learn about computers.<br>
+        I guess you already figured that out from the Ubuntu font I'm using... 😁
+    </p>
+</div>
+<div class="w3-container">   
+    <hr></hr>
+    <p>
+        <u>My developer journey</u><br><br>
+        <b>>>></b> Having studied programming only at a very basic level in highschool, I can't say that computer science got me hooked from day 1. However,
+        In 2016 I started working as an accounts payable clerk and quickly came to the realisation that most of what I was doing could be automated.
+        I took my first steps with VBA and very basic SQL querying, and I fell in love with the new world that had opened before me.
+        Currently I'm passionate about <b>Python</b> programming and I'm on a quest of learning as much as possible about <b>web development</b>. In fact, this entire website is me learning 🤪 crazy, right?
+        <br><br>
+        <b>>>></b> I'm currently working as a Data Scientist focusing primarily on Natural Language Processing. Despite this fancy title, 
+        most of what I'm doing is building data collection and text classification algorithms, nicely wrapping them up in python scripts and deploying them on Windows or Linux platforms.
+        <br><br>
+        <b>>>></b> Feel free to check out some of my <a href="{{url_for('projects')}}">projects</a> or take a look at my <a href="{{url_for('resume')}}">resume</a>.
+         
+    </p>
+    <hr></hr>
+    <p>
+        <u>On a personal level</u><br><br>
+        <b>>>></b> Whenever I have some time available I like to read, mostly programming and tech related articles, 
+        as well as world news and opinion articles about local politics. <br>Sometimes I also <a href="{{url_for('blog')}}">write stuff</a> myself.<br><br>  
+        <b>>>></b> I'm also a very low-level and rather untalented amateur <a href="{{url_for('music')}}">self-taught musician</a>, and like to experiment with different genres.<br><br>
+        <b>>>></b> I'm a fan of thrillers, The Office and coding puzzles<br><br>
+    </p>
   </div>
 {% endblock %}

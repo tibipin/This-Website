@@ -1,3 +1,4 @@
+from datetime import date
 from sqlalchemy import desc
 from app import app
 from flask import jsonify, render_template, request, redirect, url_for
@@ -10,14 +11,25 @@ from markdown import markdown
 @app.route('/about_me', methods=['GET'])
 @app.route('/', methods=['GET'])
 def home():
-    stickies_list = StickySchema(many=True).dump(Sticky.query.order_by(Sticky.timestamp.desc()).limit(5))
-    return render_template('public/home.html', stickiez=stickies_list, title=stickies_list[0]['username'])
+    current_date = (date(2022,9,22) - date.today()).days
+    return render_template('public/home.html', date=current_date)
 
 @app.route('/blog', methods=['GET'])
 def blog():
-    stickies_list = StickySchema(many=True).dump(Sticky.query.order_by(Sticky.timestamp.desc()).limit(5))
+    stickies_list = StickySchema(many=True).dump(Sticky.query.order_by(Sticky.timestamp.desc()).limit(10))
     return render_template('public/blog.html', stickiez=stickies_list, title=stickies_list[0]['username'])
 
+@app.route('/music', methods=['GET'])
+def music():
+    return jsonify(message='this is the music page')
+
+@app.route('/projects', methods=['GET'])
+def projects():
+    return jsonify(message='this is the projects page'), 200
+
+@app.route('/cv', methods=['GET'])
+def resume():
+    return jsonify(message='this is the resume page'), 200
 
 @app.route('/_admin', methods=['GET','POST'])
 def my_admin_login():

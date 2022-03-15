@@ -1,5 +1,14 @@
 body, h1, h2, h3, h4, h5, h6, form {
     font-family: 'Ubuntu Mono', monospace;
 }
-.w3-2021-illuminating
-{color:#000;background-color:#F5DF4D}
+
+
+a:hover {background-color:#F5DF4D}
+
+img {
+    float: right;
+  }
+
+code {
+    background-color: lightsalmon;
+}

@@ -4,7 +4,8 @@
 
     {% for sticky in stickiez %}
     <div class="w3-panel w3-border w3-round-xlarge">
-      <p>Posted on: <b>{{ sticky.timestamp.replace('T', ' ')}}</b></p>
+      <h5>{{ sticky.title }}</h5>
+      <small>Posted on <b>{{ sticky.timestamp.replace('T', ' ').split()[0] }}</b> at <b>{{ sticky.timestamp.replace('T', ' ').split()[1] }}</b></small>
           {{ sticky.content|safe }}
     </div>  
     {% endfor %}

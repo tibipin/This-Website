@@ -17,7 +17,10 @@ def home():
 @app.route('/blog', methods=['GET'])
 def blog():
     stickies_list = StickySchema(many=True).dump(Sticky.query.order_by(Sticky.timestamp.desc()).limit(10))
-    return render_template('public/blog.html', stickiez=stickies_list, title=stickies_list[0]['username'])
+    if stickies_list:
+        return render_template('public/blog.html', stickiez=stickies_list, title=stickies_list[0]['title'])
+    else: return jsonify(messsage='no stickiez')
+    
 
 @app.route('/music', methods=['GET'])
 def music():
@@ -50,7 +53,7 @@ def my_admin_dashboard(username):
         return render_template('admin/dashboard.html', form=sticky_form), 200
     if request.method == 'POST':
         if sticky_form.validate_on_submit():
-            new_sticky = Sticky(sticky_id=token_urlsafe(16), content=markdown(sticky_form.content.data), username=username)
+            new_sticky = Sticky(sticky_id=token_urlsafe(16), content=markdown(sticky_form.content.data), title=sticky_form.title.data)
             db.session.add(new_sticky)
             db.session.commit()
-            return redirect(url_for('home'))
+            return redirect(url_for('blog'))

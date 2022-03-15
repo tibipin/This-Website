@@ -8,11 +8,11 @@ class Sticky(db.Model):
     sticky_id = Column(String, primary_key=True)
     content = Column(String)
     timestamp = Column(DateTime(timezone=True), default=func.now())
-    username = Column(String)
+    title = Column(String)
 
 class StickySchema(ma.Schema):
     class Meta:
-        fields = ('sticky_id','content', 'timestamp', 'username')
+        fields = ('sticky_id','content', 'timestamp', 'title')
 
 class User(db.Model):
     __tablename__='users'

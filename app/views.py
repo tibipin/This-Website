@@ -13,7 +13,6 @@ from markdown import markdown
 # ===> Home / About me section <===
 # =================================
 
-@app.route('/about_me', methods=['GET'])
 @app.route('/', methods=['GET'])
 def home():
     datedif = relativedelta.relativedelta(datetime.now(),datetime(2021,9, 22, 16,41,00))
@@ -29,7 +28,8 @@ def blog():
     stickies_list = StickySchema(many=True).dump(Sticky.query.order_by(Sticky.timestamp.desc()).limit(10))
     if stickies_list:
         return render_template('public/blog.html', stickiez=stickies_list, title=stickies_list[0]['title'])
-    else: return jsonify(messsage='no stickiez')
+    else: 
+        return jsonify(messsage='no posts yet')
     
 # ==========================
 # ===> Projects section <===
@@ -37,7 +37,7 @@ def blog():
 
 @app.route('/projects', methods=['GET'])
 def projects():
-    return jsonify(message='this is the projects page'), 200
+    return render_template('public/projects.html')
 
 # ====================
 # ===> CV section <===
@@ -45,7 +45,7 @@ def projects():
 
 @app.route('/cv', methods=['GET'])
 def resume():
-    return jsonify(message='this is the resume page'), 200
+    return redirect(url_for('static', filename='Tiberiu_Pintilie_CV.pdf'))
 
 # =======================
 # ===> MUSIC section <===

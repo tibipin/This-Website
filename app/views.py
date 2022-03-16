@@ -1,4 +1,5 @@
-from datetime import date
+from datetime import datetime
+from dateutil import relativedelta
 from sqlalchemy import desc
 from app import app
 from flask import jsonify, render_template, request, redirect, url_for
@@ -15,8 +16,9 @@ from markdown import markdown
 @app.route('/about_me', methods=['GET'])
 @app.route('/', methods=['GET'])
 def home():
-    current_date = (date(2022,9,22) - date.today()).days
-    return render_template('public/home.html', date=current_date)
+    datedif = relativedelta.relativedelta(datetime.now(),datetime(2021,9, 22, 16,41,00))
+    date_format = f'{datedif.years} years, {datedif.months} months, {datedif.days} days, {datedif.hours} hours and {datedif.minutes} minutes'
+    return render_template('public/home.html', date=date_format)
 
 # =======================================
 # ===> Quick Thoughts / Blog section <===

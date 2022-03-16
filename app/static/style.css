@@ -3,12 +3,17 @@ body, h1, h2, h3, h4, h5, h6, form {
 }
 
 
-a:hover {background-color:#F5DF4D}
+a:hover, .illuminating {
+    background-color:#F5DF4D;
+    font-size: larger;
+}
 
 img {
     float: right;
-  }
+}
 
 code {
-    background-color: lightsalmon;
+    font-family: monospace;
+    font-size: small;
+    background-color: rgb(232, 232, 232);
 }

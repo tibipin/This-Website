@@ -11,25 +11,38 @@
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Ubuntu+Mono&display=swap" rel="stylesheet">
+        <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.png') }}">
     </head>
     <body>
         
         <!--This is the navigation bar-->
+        {% set navigation_bar = [
+            ('/', url_for('home'), 'about_me 😎'),
+            ('/blog', url_for('blog'), 'blog 🍜'),
+            ('/projects', url_for('projects'), 'projects 💾'),
+            ('/music', url_for('music'), 'music 📼'),
+            ('/cv', url_for('resume'), 'résumé 👨🏻‍💻')
+        ] -%}
         <div class="w3-top">
-            <div class="w3-bar w3-border w3-light-grey" id="testid">
-                <a href="{{url_for('home')}}" class="w3-bar-item w3-button w3-border-right">About me 😎</a>
-                <a href="{{url_for('blog')}}" class="w3-bar-item w3-button w3-border-right">Blog 🍕</a>
-                <a href="{{url_for('music')}}" class="w3-bar-item w3-button w3-border-right">My music 📼</a>
-                <a href="{{url_for('projects')}}" class="w3-bar-item w3-button w3-border-right">Projects 💾</a>
-                <a href="{{url_for('resume')}}" class="w3-bar-item w3-button w3-border-right">Resume 👨🏻‍💻</a>
-                <a href="{{url_for('my_admin_login')}}" class="w3-bar-item w3-button w3-border-right">Login as admin 🍜</a>
+            <div class="w3-bar w3-border w3-light-grey">
+                {% for id, href, caption in navigation_bar %}
+                    <a href={{href}} 
+                    {% if id == active_page %} 
+                        class="w3-bar-item w3-button w3-border-right illuminating"
+                    {% else %}
+                        class="w3-bar-item w3-button w3-border-right"
+                    {% endif %}>{{caption}}</a>
+                {% endfor %}
             </div>
         </div>
         <!------------------------------> 
+        
         <br><br>
+        
         <!--This is the body section-->
             {% block body %}
             {% endblock %}
         <!----------------------------> 
+    
     </body>
 </html>

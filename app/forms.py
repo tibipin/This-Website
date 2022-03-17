@@ -8,6 +8,6 @@ class LoginForm(FlaskForm):
     submit = SubmitField('Sign In')
 
 class StickyForm(FlaskForm):
-    content = TextAreaField('Sticky', validators=[DataRequired()])
-    title = StringField('Title', validators=[DataRequired()])
+    content = TextAreaField('Sticky')
+    title = TextAreaField('Title')
     post_it = SubmitField('Post It!')

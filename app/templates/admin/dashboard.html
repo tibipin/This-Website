@@ -2,14 +2,22 @@
 
 {% block body %}
 
-<h1>salutare bossultane</h1>
+<div class="w3-panel w3-border w3-round-xlarge">
+    <h4>Create a new blog post</h4>
 
-<form action="" method="post" novalidate>
-    {{ form.hidden_tag() }}
-        <p>{{ form.title }}<br></p>   
-        <p>{{ form.content }}</p>
+    <form action="" method="post" novalidate>
+        {{ form.hidden_tag() }}
+            <p>
+                {{ form.title.label }}
+                <br>
+                {{ form.title(class_='title' }}</p>
+            <p>
+                {{ form.content.label }}
+                <br>
+                {{ form.content(class_='content') }}
+            </p>
 
-    <p>{{ form.post_it() }}</p>
-</form>
-
+        <p>{{ form.post_it() }}</p>
+    </form>
+</div>
 {% endblock %}

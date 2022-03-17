@@ -17,3 +17,19 @@ code {
     font-size: small;
     background-color: rgb(232, 232, 232);
 }
+
+.content{
+    width: 50%;
+    height: 300px;
+    padding: 6px 6px;
+    box-sizing: border-box;
+    resize: none;
+  }
+
+.title{
+    width: 50%;
+    height: 40px;
+    padding: 6px 6px;
+    box-sizing: border-box;
+    resize: none;
+  }

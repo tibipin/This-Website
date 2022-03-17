@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% set active_page = "/recipes" %}
+
+{% block body %}
+<br>
+<div class="w3-container">
+    <div class="w3-container">
+        <form method="POST">
+            <input style="font-size:16px" class="fa illuminating" type="submit" value="&#xf060" name="back_to_recipes">
+        </form>
+    </div>
+    <div class="w3-container">
+        <h1>{{ title }}</h1>
+        <small>Posted on {{ posted_on.replace('T', ' ') }}</small>
+        <br>
+        {{ content|safe }}
+    </div>
+</div>
+
+{% endblock %}

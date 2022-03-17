@@ -1,4 +1,8 @@
 from datetime import datetime
+import json
+from re import U
+import re
+from turtle import pos
 from dateutil import relativedelta
 from sqlalchemy import desc
 from app import app
@@ -10,7 +14,7 @@ from secrets import token_urlsafe
 from markdown import markdown
 
 # =================================
-# ===> Home / About me section <===
+# ===> ABOUT ME section <===
 # =================================
 
 @app.route('/', methods=['GET'])
@@ -20,17 +24,26 @@ def home():
     return render_template('public/home.html', date=date_format)
 
 # =======================================
-# ===> Quick Thoughts / Blog section <===
+# ===> RECIPES section <===
 # =======================================
 
-@app.route('/blog', methods=['GET'])
-def blog():
-    stickies_list = StickySchema(many=True).dump(Sticky.query.order_by(Sticky.timestamp.desc()).limit(10))
-    if stickies_list:
-        return render_template('public/blog.html', stickiez=stickies_list, title=stickies_list[0]['title'])
-    else: 
-        return jsonify(messsage='no posts yet')
-    
+@app.route('/recipes', methods=['GET','POST'])
+def recipes():
+    if request.method == 'GET':
+        stickies_list = StickySchema(many=True).dump(Sticky.query.order_by(Sticky.timestamp.desc()).limit(10))
+        if stickies_list:
+            return render_template('public/recipes.html', stickiez=stickies_list, title=stickies_list[0]['title'])
+        else: 
+            return jsonify(messsage='no posts yet')
+    elif request.method == 'POST':
+        if 'read_it' in request.form.keys():
+            return redirect(url_for('read_recipe', recipe_id = request.form['recipe_id']))
+        elif 'delete_it' in request.form.keys():
+            to_delete = Sticky.query.filter_by(sticky_id=request.form['recipe_id']).first()
+            db.session.delete(to_delete)
+            db.session.commit()
+            return redirect(url_for('recipes'))
+
 # ==========================
 # ===> Projects section <===
 # ==========================
@@ -85,4 +98,21 @@ def my_admin_dashboard(username):
             new_sticky = Sticky(sticky_id=token_urlsafe(16), content=markdown(sticky_form.content.data), title=sticky_form.title.data)
             db.session.add(new_sticky)
             db.session.commit()
-            return redirect(url_for('blog'))
+            return redirect(url_for('recipes'))
+
+
+# =================================
+# ===> VIEW BLOG POST section <===
+# =================================
+
+@app.route('/recipes/<recipe_id>', methods=['GET', 'POST'])
+def read_recipe(recipe_id):
+    if request.method == 'GET':
+        recipe =  StickySchema(many=False).dump(Sticky.query.filter_by(sticky_id=recipe_id).first())
+        content = recipe['content']
+        title = recipe['title']
+        posted_on = recipe['timestamp']
+        return render_template('public/blogpost.html', title=title, content=markdown(content), posted_on=posted_on)
+    elif request.method == 'POST':
+            if request.form['back_to_recipes']:
+                return redirect(url_for('recipes'))

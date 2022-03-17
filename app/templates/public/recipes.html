@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% set active_page = "/recipes" %}
+
+  {% block body %}       
+  <br><br>
+    {% for sticky in stickiez %}
+    
+    <div class="w3-container w3-cell w3-mobile">
+      
+      <div class="w3-card-2 w3-hover-shadow">
+
+        <div class="w3-container">
+          <h3>{{ sticky.title }}</h3>
+          <small>Posted on <b>{{ sticky.timestamp.replace('T', ' ').split()[0] }}</b> at <b>{{ sticky.timestamp.replace('T', ' ').split()[1] }}</b></small>
+          <hr>
+          {{ sticky.content.split('<br />')[0]|safe }}
+        </div>
+
+        <div class="w3-container">
+          <form method="POST">
+            <input style="font-size:16px" class="fa illuminating" type="submit" value="&#xf06e;" name="read_it">
+            <input style="font-size:16px" class="fa illuminating" type="submit" value="&#xf00d;" name="delete_it">
+            <input type="hidden" name="recipe_id" value="{{ sticky.sticky_id }}">
+          </form>
+          <br>
+        </div>
+        
+      </div>
+
+    </div>
+
+    <div class="w3-container w3-cell w3-mobile">
+    </div>
+
+    {% endfor %}
+
+  {% endblock %}

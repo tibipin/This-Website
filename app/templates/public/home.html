@@ -3,26 +3,30 @@
 
 
 {% block body %}
+<br>
 <div class="w3-container">
-    <img src="{{url_for('static',filename='fatau-modified.png')}}" class="w3-image w3-round" style="width:100%; max-width: 160px; height: 100%;">
-    <h4>
-        Hello.
-        My name is Tibi.
-    </h4>
-    <p>
-        I'm a developer / data scientist located in Bucharest, Romania.<br>
-        I'm passionate about programming but I guess you already figured that out from the Ubuntu font I'm using... 😁<br>
-        I'm also the proud dad to my daughter who is now → {{ date }} old.
-    </p>
+        <img src="{{url_for('static',filename='fatau-modified.png')}}" class="w3-image w3-round" style="width:100%; max-width: 160px; height: 20%;">
+    <div class="w3-container w3-cell w3-margin-left">
+        <h4>
+            Hello.
+            My name is Tibi.
+        </h4>
+        <p>
+            I'm a developer / data scientist located in Bucharest, Romania.<br>
+            I'm passionate about programming but I guess you already figured that out from the Ubuntu font I'm using... 😁<br>
+            I'm also the proud dad to my daughter who is now → {{ date }} old.
+        </p>
+    </div>
 </div>
 <div class="w3-container">   
     <hr></hr>
     <p>
         <u>My developer journey</u><br><br>
+        <img src="https://i.imgflip.com/696kn2.jpg" class="w3-image" width="300" height="150" style="float: right"/>
         <b>>>></b> Having studied programming only at a very basic level in highschool, I can't say that computer science got me hooked from day 1... However,
         in 2016, I started working a 9 to 5 office job and quickly came to the realisation that most of what I was doing could be automated. I dived into coding and I fell in love instantly.<br>
-        Currently I'm on a quest of learning as much as possible about <b>web development</b>. In fact, this entire website is me learning 🤪 crazy, right?
-        <br><br>
+        Currently I'm on a quest of learning as much as possible about <b>web development</b>. In fact, this entire website is me learning 🤪 crazy, right?<br>
+        <br>
         <b>>>></b> I'm currently working as a data scientist focusing primarily on the field of Natural Language Processing. Despite this fancy title, 
         most of what I'm doing is building data collection and text classification algorithms, nicely wrapping them up in python scripts and deploying them on Windows or Linux platforms.
         <br><br>

@@ -1,2 +1,35 @@
 {% extends 'base.html' %}
 {% set active_page = "/projects" %}
+
+{% block body %}
+{% set links = [
+    'extract-iphone-media-from-backup',
+    'OCR_my_PDF',
+    'web_scraping_imobiliare.ro',
+    'py_my_spotify'
+] -%}
+
+<br>
+<div class="w3-container">
+    <h1>Scrapers</h1>    
+    <hr>
+    {% for link in links %}
+        {% if 'scrap' in link %}
+            <div class="w3-container w3-cell w3-mobile">
+                <div class="w3-card-2">
+                    <header class="w3-container illuminating">
+                        <h3>{{ link }}</h3>
+                    </header>
+                    <!----------------------->
+                    <div class="w3-container">
+                        <p>Lorem ipsum...</p>
+                    </div>
+                    <a style="font-size:16px" class="w3-btn" href="https://github.com/tibipin/{{link}}">👾 see code</a>
+                </div>
+            </div>
+        {% endif %}
+    {% endfor %}
+</div>
+
+
+{% endblock %}

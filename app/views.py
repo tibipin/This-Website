@@ -2,9 +2,7 @@ from datetime import datetime
 import json
 from re import U
 import re
-from turtle import pos
 from dateutil import relativedelta
-from sqlalchemy import desc
 from app import app
 from flask import jsonify, render_template, request, redirect, url_for
 from app.models import Sticky, StickySchema, User

@@ -1,7 +1,5 @@
 from datetime import datetime
-import json
-from re import U
-import re
+import requests
 from dateutil import relativedelta
 from app import app
 from flask import jsonify, render_template, request, redirect, url_for
@@ -11,9 +9,9 @@ from app import db
 from secrets import token_urlsafe
 from markdown import markdown
 
-# =================================
+# ==========================
 # ===> ABOUT ME section <===
-# =================================
+# ==========================
 
 @app.route('/', methods=['GET'])
 def home():
@@ -21,9 +19,9 @@ def home():
     date_format = f'{datedif.years} years, {datedif.months} months, {datedif.days} days, {datedif.hours} hours and {datedif.minutes} minutes'
     return render_template('public/home.html', date=date_format)
 
-# =======================================
+# =========================
 # ===> RECIPES section <===
-# =======================================
+# =========================
 
 @app.route('/recipes', methods=['GET','POST'])
 def recipes():
@@ -43,12 +41,14 @@ def recipes():
             return redirect(url_for('recipes'))
 
 # ==========================
-# ===> Projects section <===
+# ===> PROJECTS section <===
 # ==========================
 
 @app.route('/projects', methods=['GET'])
 def projects():
-    return render_template('public/projects.html')
+    repos = [(i['name'], i['topics'], i['description']) 
+            for i in requests.get(r'https://api.github.com/users/tibipin/repos').json()]
+    return render_template('public/projects.html', projects=repos)
 
 # ====================
 # ===> CV section <===

@@ -2,34 +2,37 @@
 {% set active_page = "/projects" %}
 
 {% block body %}
-{% set links = [
-    'extract-iphone-media-from-backup',
-    'OCR_my_PDF',
-    'web_scraping_imobiliare.ro',
-    'py_my_spotify'
+
+{% set categories = ['web-development',
+'small-software',
+'data-analysis',
+'web-scrapers',
+'automation',
+'data-science',
 ] -%}
 
-<br>
-<div class="w3-container">
-    <h1>Scrapers</h1>    
+{% for category in categories %}
+    <div class="w3-content illuminating w3-center">
+       <h2> {{ category.replace('-',' ')}} </h2>
+    </div>
     <hr>
-    {% for link in links %}
-        {% if 'scrap' in link %}
-            <div class="w3-container w3-cell w3-mobile">
-                <div class="w3-card-2">
-                    <header class="w3-container illuminating">
-                        <h3>{{ link }}</h3>
-                    </header>
+    {% for link in projects %}
+        {% if category in link[1] %}
+            <div class="w3-content">
+                <div class="w3-card-2 w3-mobile">
+                    <div class="w3-container w3-border">
+                        <h4><b>{{ link[0].replace('-',' ') }}</b></h4>
+                    </div>
                     <!----------------------->
                     <div class="w3-container">
-                        <p>Lorem ipsum...</p>
+                        <p>{{ link[2] }}</p>
                     </div>
-                    <a style="font-size:16px" class="w3-btn" href="https://github.com/tibipin/{{link}}">👾 see code</a>
-                </div>
+                    <a style="font-size:16px" class="w3-btn" href="https://github.com/tibipin/{{link[0]}}">👾 see code</a>
+                </div>          
             </div>
+            <br>
         {% endif %}
     {% endfor %}
-</div>
-
-
+    <hr>
+{% endfor %}
 {% endblock %}

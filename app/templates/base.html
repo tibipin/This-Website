@@ -24,7 +24,7 @@
             ('/music', url_for('music'), 'music 📼'),
             ('/cv', url_for('resume'), 'résumé 📄')
         ] -%}
-        <div class="w3-top w3-mobile">
+        <div class="w3-row w3-top">
             <div class="w3-bar w3-border w3-light-grey">
                 {% for id, href, caption in navigation_bar %}
                     <a href={{href}} 
@@ -38,10 +38,11 @@
         </div>
         <!------------------------------> 
         
-        <br><br>
+        <div class="w3-row" style="margin: 3%">
+        </div>
         
         <!--This is the body section-->
-        <div class="w3-mobile">
+        <div clss="w3-row">
             {% block body %}
             {% endblock %}
         </div>

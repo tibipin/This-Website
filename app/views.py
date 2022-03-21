@@ -8,7 +8,7 @@ from app.forms import LoginForm, StickyForm
 from app import db
 from secrets import token_urlsafe
 from markdown import markdown
-from werkzeug.security import qcheck_password_hash
+from werkzeug.security import check_password_hash
 
 # ==========================
 # ===> ABOUT ME section <===

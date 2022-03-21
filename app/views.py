@@ -8,7 +8,7 @@ from app.forms import LoginForm, StickyForm
 from app import db
 from secrets import token_urlsafe
 from markdown import markdown
-from werkzeug.security import generate_password_hash, check_password_hash
+from werkzeug.security import qcheck_password_hash
 
 # ==========================
 # ===> ABOUT ME section <===
@@ -71,7 +71,7 @@ def music():
 # ===> ADMIN section <===
 # =======================
 
-@app.route('/_admin', methods=['GET','POST'])
+@app.route('/_admin', methods=['GET', 'POST'])
 def my_admin_login():
     form = LoginForm()
     if request.method == 'GET':

@@ -3,19 +3,17 @@
 
 {% block body %}
 
-{% set categories = ['web-development',
-'small-software',
-'data-analysis',
-'web-scrapers',
-'automation',
-'short-and-sweet',
+{% set categories = [
+    'web-development',
+    'small-software',
+    'web-scrapers',
+    'short-and-sweet',
 ] -%}
 
 {% for category in categories %}
     <div class="w3-content illuminating w3-center">
        <h2> {{ category.replace('-',' ')}} </h2>
     </div>
-    <hr>
     {% for link in projects %}
         {% if category in link[1] %}
             <div class="w3-content">

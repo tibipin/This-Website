@@ -11,15 +11,13 @@
 ] -%}
 
 {% for category in categories %}
-    <div class="w3-content illuminating w3-center">
-        <div class="w3-card-2 w3-mobile">
-            <h2> {{ category.replace('-',' ')}} </h2>
-        </div>
+    <div class="w3-content w3-center illuminating">
+            <h2> {{ category.replace('-',' ') }} ⬇</h2>
     </div>
     {% for link in projects %}
         {% if category in link[1] %}
             <div class="w3-content">
-                <div class="w3-card-2 w3-mobile">
+                <div class="w3-card-2 w3-mobile w3-border">
                     <div class="w3-container w3-border">
                         <h4><b>{{ link[0].replace('-',' ') }}</b></h4>
                     </div>
@@ -27,12 +25,13 @@
                     <div class="w3-container">
                         <p>{{ link[2] }}</p>
                     </div>
-                    <a style="font-size:16px" class="w3-btn" href="https://github.com/tibipin/{{link[0]}}">👾 see code</a>
-                </div>          
+                    <p class="w3-center"><a style="font-size:16px" class="w3-btn" href="https://github.com/tibipin/{{ link[0] }}">👾 see code</a></p>
+                </div>
+                <br>          
             </div>
-            <br>
         {% endif %}
     {% endfor %}
+    <br>
     <hr>
 {% endfor %}
 {% endblock %}

@@ -8,6 +8,7 @@ from app.forms import LoginForm, StickyForm
 from app import db
 from secrets import token_urlsafe
 from markdown import markdown
+from werkzeug.security import generate_password_hash, check_password_hash
 
 # ==========================
 # ===> ABOUT ME section <===
@@ -77,7 +78,8 @@ def my_admin_login():
         return render_template('admin/login.html', form=form)
     else:
         if form.validate_on_submit():
-            if User.query.filter_by(username=form.username.data, password=form.password.data).first():
+            user = User.query.filter_by(username=form.username.data).first()
+            if user and check_password_hash(user.password, form.password.data):
                 return redirect(url_for('my_admin_dashboard', username=form.username.data))
             else:
                 return render_template('admin/login.html')

@@ -5,7 +5,7 @@ import os
 
 app = Flask(__name__)
 
-app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///super_database.db"
+app.config['SQLALCHEMY_DATABASE_URI'] = "postgres://jukvqtdiodjvfa:ea7563f1138820cd1a17d78177fe373bc59711e9771af9bf694a261b6cdf4a6a@ec2-52-22-226-8.compute-1.amazonaws.com:5432/d9efbdoe69kv1rpostgres://jukvqtdiodjvfa:ea7563f1138820cd1a17d78177fe373bc59711e9771af9bf694a261b6cdf4a6a@ec2-52-22-226-8.compute-1.amazonaws.com:5432/d9efbdoe69kv1r"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
 db = SQLAlchemy(app)

@@ -9,6 +9,7 @@ from app import db
 from secrets import token_urlsafe
 from markdown import markdown
 from werkzeug.security import check_password_hash
+from flask_login import login_required, current_user, login_user
 
 # ==========================
 # ===> ABOUT ME section <===
@@ -29,9 +30,10 @@ def recipes():
     if request.method == 'GET':
         stickies_list = StickySchema(many=True).dump(Sticky.query.order_by(Sticky.timestamp.desc()).limit(10))
         if stickies_list:
-            return render_template('public/recipes.html', stickiez=stickies_list, title=stickies_list[0]['title'])
-        else: 
-            return jsonify(messsage='no posts yet')
+            if current_user.is_authenticated:
+                return render_template('public/recipes_for_admin.html', stickiez=stickies_list, title=stickies_list[0]['title'])
+            else:
+                return render_template('public/recipes_for_anonymous.html', stickiez=stickies_list, title=stickies_list[0]['title'])
     elif request.method == 'POST':
         if 'read_it' in request.form.keys():
             return redirect(url_for('read_recipe', recipe_id = request.form['recipe_id']))
@@ -75,11 +77,15 @@ def music():
 def my_admin_login():
     form = LoginForm()
     if request.method == 'GET':
-        return render_template('admin/login.html', form=form)
+        if current_user.is_authenticated:
+            return redirect(url_for('my_admin_dashboard', username=form.username.data))
+        else:
+            return render_template('admin/login.html', form=form)
     else:
         if form.validate_on_submit():
             user = User.query.filter_by(username=form.username.data).first()
             if user and check_password_hash(user.password, form.password.data):
+                login_user(user)
                 return redirect(url_for('my_admin_dashboard', username=form.username.data))
             else:
                 return render_template('admin/login.html')
@@ -89,6 +95,7 @@ def my_admin_login():
 # =================================
 
 @app.route('/_admin/<username>', methods=['GET','POST'])
+@login_required
 def my_admin_dashboard(username):
     sticky_form = StickyForm()
     if request.method == 'GET':

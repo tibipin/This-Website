@@ -1,7 +1,7 @@
 from sqlalchemy import Column, String, DateTime
 from sqlalchemy.sql import func
 from app import db, ma
-
+from flask_login import UserMixin
 
 class Sticky(db.Model):
     __tablename__='sticky_notes'
@@ -14,7 +14,7 @@ class StickySchema(ma.Schema):
     class Meta:
         fields = ('sticky_id','content', 'timestamp', 'title')
 
-class User(db.Model):
+class User(UserMixin, db.Model):
     __tablename__='users'
     username = Column(String, primary_key=True)
     password = Column(String)

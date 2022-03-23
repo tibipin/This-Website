@@ -34,6 +34,8 @@ def recipes():
                 return render_template('public/recipes_for_admin.html', stickiez=stickies_list, title=stickies_list[0]['title'])
             else:
                 return render_template('public/recipes_for_anonymous.html', stickiez=stickies_list, title=stickies_list[0]['title'])
+        else: 
+            return jsonify(message='sorry, no posts yet')
     elif request.method == 'POST':
         if 'read_it' in request.form.keys():
             return redirect(url_for('read_recipe', recipe_id = request.form['recipe_id']))
@@ -77,18 +79,18 @@ def music():
 def my_admin_login():
     form = LoginForm()
     if request.method == 'GET':
-        if current_user.is_authenticated:
-            return redirect(url_for('my_admin_dashboard', username=form.username.data))
-        else:
+        if not current_user.is_authenticated:
             return render_template('admin/login.html', form=form)
-    else:
+        else:
+            return jsonify(message='you are already logged in.')
+    elif request.method == 'POST':
         if form.validate_on_submit():
             user = User.query.filter_by(username=form.username.data).first()
             if user and check_password_hash(user.password, form.password.data):
                 login_user(user)
-                return redirect(url_for('my_admin_dashboard', username=form.username.data))
+                return redirect(url_for('my_admin_dashboard', username=user.username))
             else:
-                return render_template('admin/login.html')
+                return render_template('admin/login.html', form=form)
 
 # =================================
 # ===> CREATE NEW POST section <===

@@ -1,7 +1,13 @@
 from sqlalchemy import Column, String, DateTime
 from sqlalchemy.sql import func
 from app import db, ma
-from flask_login import UserMixin
+from flask_login import UserMixin, LoginManager
+
+login_manager = LoginManager()
+
+@login_manager.user_loader
+def load_user(username):
+    return User.query.filter_by(username=username).first()
 
 class Sticky(db.Model):
     __tablename__='sticky_notes'
@@ -19,3 +25,6 @@ class User(UserMixin, db.Model):
     username = Column(String, primary_key=True)
     password = Column(String)
     email = Column(String)
+
+    def get_id(self):
+        return self.username

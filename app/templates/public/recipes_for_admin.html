@@ -13,7 +13,7 @@
           <h3>{{ sticky.title }}</h3>
           <small>Posted on <b>{{ sticky.timestamp.replace('T', ' ').split()[0] }}</b> at <b>{{ sticky.timestamp.replace('T', ' ').split()[1] }}</b></small>
           <hr>
-          {{ sticky.content.split('<br />')[0]|safe }}
+          {{ sticky.content.split('<br>')[0]|safe }}
         </div>
         <div class="w3-container">
           <form method="POST">

@@ -99,12 +99,15 @@ def my_admin_login():
 @app.route('/_admin/<username>', methods=['GET','POST'])
 @login_required
 def my_admin_dashboard(username):
+    user = User.query.filter_by(username=username).first()
+    if not user:
+        return jsonify(message='sorry, this user does not exist')
     sticky_form = StickyForm()
     if request.method == 'GET':
         return render_template('admin/dashboard.html', form=sticky_form), 200
     if request.method == 'POST':
         if sticky_form.validate_on_submit():
-            new_sticky = Sticky(sticky_id=token_urlsafe(16), content=markdown(sticky_form.content.data), title=sticky_form.title.data)
+            new_sticky = Sticky(sticky_id=token_urlsafe(16), content=sticky_form.content.data, title=sticky_form.title.data)
             db.session.add(new_sticky)
             db.session.commit()
             return redirect(url_for('recipes'))
@@ -121,7 +124,7 @@ def read_recipe(recipe_id):
         content = recipe['content']
         title = recipe['title']
         posted_on = recipe['timestamp']
-        return render_template('public/blogpost.html', title=title, content=markdown(content), posted_on=posted_on)
+        return render_template('public/blogpost.html', title=title, content=content, posted_on=posted_on)
     elif request.method == 'POST':
             if request.form['back_to_recipes']:
                 return redirect(url_for('recipes'))

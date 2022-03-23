@@ -7,7 +7,14 @@ login_manager = LoginManager()
 
 @login_manager.user_loader
 def load_user(username):
-    return User.query.filter_by(username=username).first()
+    if username:
+        user_x = User.query.filter_by(username=username).first()
+        if user_x: 
+            return user_x
+        else:
+            return None
+    else: 
+        return None
 
 class Sticky(db.Model):
     __tablename__='sticky_notes'

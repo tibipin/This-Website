@@ -61,7 +61,7 @@ def projects():
 
 @app.route('/cv', methods=['GET'])
 def resume():
-    return render_template('public/cv.html')
+    return redirect(url_for('static', filename='Tiberiu_Pintilie_CV.pdf'))
 
 # =======================
 # ===> MUSIC section <===

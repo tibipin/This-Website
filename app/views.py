@@ -35,7 +35,7 @@ def recipes():
             else:
                 return render_template('public/recipes_for_anonymous.html', stickiez=stickies_list, title=stickies_list[0]['title'])
         else: 
-            return jsonify(message='sorry, no posts yet')
+            return render_template('public/404.html'), 404
     elif request.method == 'POST':
         if 'read_it' in request.form.keys():
             return redirect(url_for('read_recipe', recipe_id = request.form['recipe_id']))
